@@ -1,3 +1,8 @@
+* {
+  font-family: "Inter", system-ui;
+  margin: 0;
+  padding: 0;
+}
 body {
   margin: 0;
   font-family: "Inter", system-ui;
@@ -6,7 +11,6 @@ body {
   background-color: #e7f6ff;
   font-size: 14px;
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -55,6 +59,16 @@ header {
   border-radius: 40px;
   padding: 20px 30px;
   width: 220px;
+  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+  &:hover {
+    box-shadow: 0px 14px 30px rgba(0, 0, 0, 0.05);
+    transform: translateY(-10px);
+  }
+  .favourite {
+    position: absolute;
+    cursor: pointer;
+  }
   img {
     display: block;
     margin: 0 auto;
@@ -82,4 +96,122 @@ header {
   width: 32px;
 
   cursor: pointer;
+}
+
+.searchBlock {
+  border: 1px solid #f3f3f3;
+  border-radius: 10px;
+  padding: 14px 18px;
+  img {
+    margin-right: 12px;
+  }
+  input {
+    border: none;
+    padding: 0;
+    width: 180px;
+  }
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+.drawer {
+  position: absolute;
+  width: 385px;
+  height: 100%;
+  right: 0;
+  background: #ffffff;
+  box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
+
+  padding: 30px;
+  h2 {
+    margin: 0;
+  }
+  .cartItems {
+    flex: 1;
+    overflow: auto;
+    margin-bottom: 40px;
+  }
+  .cartItem {
+    border: 1px solid #f3f3f3;
+    border-radius: 20px;
+    padding: 20px;
+    &Img {
+      width: 70px;
+      height: 70px;
+      background-size: contain;
+      background-position: 0 10px;
+      background-repeat: no-repeat;
+      margin-right: 20px;
+    }
+    .removeBtn {
+      opacity: 0.5;
+      transition: opacity 0.2s ease-in-out;
+      cursor: pointer;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.cartTotalBlock {
+  ul {
+    
+    li {
+      display: flex;
+      align-items: flex-end;
+      margin-bottom: 20px;
+      div {
+        flex: 1;
+        height: 1px;
+        border-bottom: 1px dashed #dfdfdf;
+        position: relative;
+        top: -4px;
+        margin: 0 8px;
+      }
+    }
+  }
+  .greenButton {
+    position: relative;
+    &:hover {
+      img {
+        transform: translateX(5px);
+      }
+    }
+    img {
+      position: absolute;
+      right: 30px;
+      top: 22px;
+      transition: transform 0.15s ease-in-out;
+    }
+  }
+}
+.greenButton {
+  width: 100%;
+  background: #9dd558;
+  border-radius: 18px;
+  border: none;
+
+  padding: 18px;
+
+  font-weight: 600;
+  font-size: 16px;
+  text-align: center;
+
+  color: #ffffff;
+  transition: background 0.1s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    background: lighten(#9dd558, 5%);
+  }
+  &:active {
+    background: darken(#9dd558, 5%);
+  }
 }
