@@ -2,10 +2,11 @@ import React, { useState } from "react";
 
 import styles from "./CardItem.module.scss";
 
-const CardItem = ({title, price, image, onAddItem}) => {
+const CardItem = ({title, price, image, onAdd}) => {
   const [isAdded, setIsAdded] = useState(false);
 
   const onClickPlus = () => {
+    onAdd({title, price, image});
     setIsAdded(prev => !prev);
     
   }
