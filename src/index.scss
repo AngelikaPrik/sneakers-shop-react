@@ -136,16 +136,10 @@ header {
   }
   .greenButton {
     position: relative;
-    &:hover {
-      img {
-        transform: translateX(5px);
-      }
-    }
     img {
       position: absolute;
       right: 30px;
       top: 22px;
-      transition: transform 0.15s ease-in-out;
     }
   }
 }
@@ -170,5 +164,28 @@ header {
   }
   &:active {
     background: darken(#9dd558, 5%);
+  }
+  img {
+    transition: transform 0.15s ease-in-out;
+  }
+  &:hover {
+    img {
+      transform: translateX(5px);
+    }
+  }
+}
+.cartEmpty {
+  margin-top: 100px;
+  .backButton {
+    width: 245px;
+  }
+  .emptyText {
+  width: 285px;
+  
+    font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.4);
   }
 }
