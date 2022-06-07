@@ -1,31 +1,37 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import CardItem from "./components/CardItem/CardItem";
 import Drawer from "./components/Drawer";
 import Header from "./components/Header";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Favourites from "./pages/Favourites";
+import AppContext from "./Context";
 
 function App() {
   const [items, setItems] = useState([]);
   const [addedItems, setAddedItems] = useState([]);
   const [favouriteItems, setFavouriteItems] = useState([]);
-  const [cartOpened, setCartOpened] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-  const [isLoading, setIsLoading] = useState(true)
+  const [cartOpened, setCartOpened] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
-      const cartResponse = await axios.get("https://6290cc69665ea71fe13af76d.mockapi.io/cart");
-      const favItemsResponse = await axios.get("https://6290cc69665ea71fe13af76d.mockapi.io/favourites");
-      const itemsResponse = await axios.get("https://6290cc69665ea71fe13af76d.mockapi.io/sneakers");
+      const cartResponse = await axios.get(
+        "https://6290cc69665ea71fe13af76d.mockapi.io/cart"
+      );
+      const favItemsResponse = await axios.get(
+        "https://6290cc69665ea71fe13af76d.mockapi.io/favourites"
+      );
+      const itemsResponse = await axios.get(
+        "https://6290cc69665ea71fe13af76d.mockapi.io/sneakers"
+      );
 
-      setIsLoading(false)
-      
-      setAddedItems(cartResponse.data)
-      setFavouriteItems(favItemsResponse.data)
-      setItems(itemsResponse.data)
+      setIsLoading(false);
+
+      setAddedItems(cartResponse.data);
+      setFavouriteItems(favItemsResponse.data);
+      setItems(itemsResponse.data);
     }
 
     fetchData();
@@ -58,12 +64,17 @@ function App() {
     setSearchValue(event.target.value);
   };
 
-  const onAddToFavourites = async (obj) => {
+  const isItemAdded = (id) => {
+    return addedItems.some((obj) => Number(obj.id) === Number(id));
+  };
+
+  const onAddToFavourite = async (obj) => {
     try {
-      if (favouriteItems.find((favObj) => favObj.id === obj.id)) {
+      if (favouriteItems.find((favObj) => Number(favObj.id) === Number(obj.id))) {
         axios.delete(
           `https://6290cc69665ea71fe13af76d.mockapi.io/favourites/${obj.id}`
         );
+        setFavouriteItems((prev) => prev.filter((item) => item.id !== obj.id));
       } else {
         const { data } = await axios.post(
           "https://6290cc69665ea71fe13af76d.mockapi.io/favourites",
@@ -77,41 +88,38 @@ function App() {
   };
 
   return (
-    <div className="wrapper clear">
-      {cartOpened && (
-        <Drawer
-          addedItems={addedItems}
-          onClose={() => setCartOpened(false)}
-          onRemove={onRemoveFromCart}
-        />
-      )}
-      <Header onOpenCart={() => setCartOpened(true)} />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              items={items}
-              addedItems={addedItems}
-              searchValue={searchValue}
-              onChangeInput={onChangeInput}
-              onAddToCart={onAddToCart}
-              onFavourite={onAddToFavourites}
-              isLoading={isLoading}
-            />
-          }
-        />
-        <Route
-          path="/favourites"
-          element={
-            <Favourites
-              items={favouriteItems}
-              onFavourite={onAddToFavourites}
-            />
-          }
-        />
-      </Routes>
-    </div>
+    <AppContext.Provider
+      value={{ items, addedItems, favouriteItems, isLoading, isItemAdded, onAddToFavourite, setCartOpened, setAddedItems }}
+    >
+      <div className="wrapper clear">
+        {cartOpened && (
+          <Drawer
+            items={addedItems}
+            onClose={() => setCartOpened(false)}
+            onRemove={onRemoveFromCart}
+          />
+        )}
+        <Header onOpenCart={() => setCartOpened(true)} />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                items={items}
+                addedItems={addedItems}
+                searchValue={searchValue}
+                setSearchValue={setSearchValue}
+                onChangeInput={onChangeInput}
+                onAddToCart={onAddToCart}
+                onAddToFavourite={onAddToFavourite}
+                isLoading={isLoading}
+              />
+            }
+          />
+          <Route path="/favourites" element={<Favourites />} />
+        </Routes>
+      </div>
+    </AppContext.Provider>
   );
 }
 

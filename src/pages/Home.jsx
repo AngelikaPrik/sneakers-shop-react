@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import CardItem from "../components/CardItem/CardItem";
+import Slider from "../components/Slider";
+import AppContext from "../Context";
 
 const Home = ({
   items,
   searchValue,
   onChangeInput,
   onAddToCart,
-  onFavourite,
-  addedItems,
-  isLoading,
+  onAddToFavourite,
 }) => {
+  const { isLoading } = useContext(AppContext);
+
   const renderItems = () => {
     const filteredItems = items.filter((item) =>
       item.title.toLowerCase().includes(searchValue)
@@ -18,8 +20,7 @@ const Home = ({
       <CardItem
         key={index}
         onAdd={(obj) => onAddToCart(obj)}
-        onFavourite={(obj) => onFavourite(obj)}
-        added={addedItems.some((obj) => Number(obj.id) === Number(item.id))}
+        onFavourite={(obj) => onAddToFavourite(obj)}
         loading={isLoading}
         {...item}
       />
@@ -28,6 +29,7 @@ const Home = ({
 
   return (
     <div className="content p-40">
+      <Slider/>
       <div className="mb-40 d-flex justify-between align-center">
         <h1>
           {searchValue ? `Поиск по запросу "${searchValue}"` : "Все кроссовки"}
@@ -41,7 +43,7 @@ const Home = ({
           />
         </div>
       </div>
-      <div className="d-flex flex-wrap">{renderItems()}</div>
+      <div className="d-flex justify-between flex-wrap">{renderItems()}</div>
     </div>
   );
 };

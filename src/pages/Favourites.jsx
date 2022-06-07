@@ -1,22 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import CardItem from "../components/CardItem/CardItem";
+import AppContext from "../Context";
 
-const Favourites = ({ items, onFavourite }) => {
+const Favourites = () => {
+  const {favouriteItems, onAddToFavourite, isLoading} = useContext(AppContext);
+
   return (
     <div className="content p-40">
       <div className="mb-40 d-flex align-center ">
         <Link to="/">
-          <img className="mr-20 cu-p" src="/img/back_fav.svg" />
+          <img className="mr-20 cu-p" src="/img/back_fav.svg" alt=""/>
         </Link>
         <h1>Мои закладки</h1>
       </div>
       <div className="d-flex flex-wrap">
-        {items.map((item, index) => (
+        { (isLoading ? [...Array(12)] : 
+          favouriteItems).map((item, index) => (
           <CardItem
             key={index}
             fav={true}
-            onFavourite={onFavourite}
+            onFavourite={onAddToFavourite}
+            loading={isLoading}
             {...item}
           />
         ))}

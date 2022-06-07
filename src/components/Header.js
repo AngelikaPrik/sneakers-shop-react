@@ -6,7 +6,7 @@ const Header = ({ onOpenCart }) => {
     <header className="d-flex justify-between align-center p-40">
       <Link to="/">
         <div className="d-flex align-center">
-          <img width={40} height={40} src="/img/logo.png" alt="" />
+          <img width={40} height={40} src="/img/logo.svg" alt="" />
           <div>
             <h3 className="text-uppercase">React Sneakers</h3>
             <p>Магазин лучших кроссовок</p>

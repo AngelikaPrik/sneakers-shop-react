@@ -1,6 +1,41 @@
-import React from "react";
+import axios from "axios";
+import React, { useContext, useState } from "react";
+import AppContext from "../Context";
+import Info from "./Info";
 
-const Drawer = ({ onClose, addedItems = [], onRemove, total }) => {
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const Drawer = ({ onClose, items = [], onRemove }) => {
+  const { addedItems, setAddedItems } = useContext(AppContext);
+  const [orderId, setOrderId] = useState(null);
+  const [isOrderComplete, setIsOrderComplete] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const clickToOrder = async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await axios.post(
+        "https://6290cc69665ea71fe13af76d.mockapi.io/orders",
+        { items: addedItems }
+      );
+
+      setOrderId(data.id);
+      setIsOrderComplete(true);
+      setAddedItems([]);
+
+      for (let i = 0; i < addedItems.length; i++) {
+        const item = addedItems[i];
+        await axios.delete(
+          "https://6290cc69665ea71fe13af76d.mockapi.io/cart" + item.id
+        );
+        await delay(1000)
+      }
+    } catch (error) {
+      alert("Ошибка при создании заказа");
+    }
+    setIsLoading(false);
+  };
+
   return (
     <div className="overlay">
       <div className="drawer d-flex flex-column">
@@ -13,12 +48,15 @@ const Drawer = ({ onClose, addedItems = [], onRemove, total }) => {
             alt="Remove"
           />
         </h2>
-        {addedItems.length ? (
-          <>
+        {items.length > 0 ? (
+          <div className="d-flex flex-column flex">
             <div className="cartItems">
-              {addedItems.map((item) => {
+              {items.map((item) => {
                 return (
-                  <div key={item.id} className="cartItem d-flex align-center mb-20">
+                  <div
+                    key={item.id}
+                    className="cartItem d-flex align-center mb-20"
+                  >
                     <div
                       style={{ backgroundImage: `url(${item.imageUrl})` }}
                       className="cartItemImg  d-flex"
@@ -50,28 +88,30 @@ const Drawer = ({ onClose, addedItems = [], onRemove, total }) => {
                   <b>1074 руб.</b>
                 </li>
               </ul>
-              <button className="greenButton">
+              <button
+                disabled={isLoading}
+                onClick={clickToOrder}
+                className="greenButton"
+              >
                 Оформить заказ <img src="/img/arrow-btn.svg" alt="" />
               </button>
             </div>
-          </>
-        ) : (
-          <div className="d-flex flex-column align-center cartEmpty">
-            <img
-              width={120}
-              height={120}
-              alt="Cart"
-              src="/img/empty-cart.png"
-              className="mb-20"
-            />
-            <h3 className="mb-10">Корзина пустая</h3>
-            <p className="mb-40 emptyText">
-              Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.
-            </p>
-            <button onClick={onClose} className="greenButton backButton d-flex justify-center align-center">
-              <img src="/img/back-cart-btn.svg" alt="" className="mr-20"/> Вернуться назад
-            </button>
           </div>
+        ) : (
+          <Info
+            image={
+              isOrderComplete
+                ? "/img/complete-order.png"
+                : "/img/empty-cart.png"
+            }
+            w={isOrderComplete ? 83 : 120}
+            title={isOrderComplete ? "Заказ оформлен!" : "Корзина пустая"}
+            description={
+              isOrderComplete
+                ? `Ваш заказ #${orderId} скоро будет передан курьерской доставке`
+                : "Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ."
+            }
+          />
         )}
       </div>
     </div>
