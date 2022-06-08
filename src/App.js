@@ -15,6 +15,7 @@ function App() {
   const [cartOpened, setCartOpened] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  
   useEffect(() => {
     async function fetchData() {
       const cartResponse = await axios.get(
