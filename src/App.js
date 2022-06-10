@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Favourites from "./pages/Favourites";
 import AppContext from "./Context";
+import Orders from "./pages/Orders";
 
 function App() {
   const [items, setItems] = useState([]);
@@ -90,7 +91,7 @@ function App() {
 
   return (
     <AppContext.Provider
-      value={{ items, addedItems, favouriteItems, isLoading, isItemAdded, onAddToFavourite, setCartOpened, setAddedItems }}
+      value={{ items, addedItems, favouriteItems, isLoading, isItemAdded, onAddToFavourite, onAddToCart, setCartOpened, setAddedItems }}
     >
       <div className="wrapper clear">
         {cartOpened && (
@@ -118,6 +119,7 @@ function App() {
             }
           />
           <Route path="/favourites" element={<Favourites />} />
+          <Route path="/orders" element={<Orders />} />
         </Routes>
       </div>
     </AppContext.Provider>

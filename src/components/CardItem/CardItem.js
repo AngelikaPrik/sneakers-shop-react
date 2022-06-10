@@ -45,14 +45,14 @@ const CardItem = ({
         </ContentLoader>
       ) : (
         <>
-          <div className={styles.favourite} onClick={onClickFavourite}>
+          {onFavourite && <div className={styles.favourite} onClick={onClickFavourite}>
             <img
               width={32}
               height={32}
               src={isFavourite ? "/img/liked.png" : "/img/unliked.png"}
               alt=""
             />
-          </div>
+          </div>}
           <img
             className="mb-15"
             width={133}
@@ -67,12 +67,12 @@ const CardItem = ({
               <b>{price} руб.</b>
             </div>
 
-            <img
+            {onAdd && <img
               onClick={onClickPlus}
               className={styles.plus}
               src={isItemAdded(id) ? "/img/btn-check.svg" : "/img/btn-plus.svg"}
               alt="Plus"
-            />
+            />}
           </div>
         </>
       )}

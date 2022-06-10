@@ -43,7 +43,7 @@ const Home = ({
           />
         </div>
       </div>
-      <div className="d-flex justify-between flex-wrap">{renderItems()}</div>
+      <div className="d-flex flex-wrap">{renderItems()}</div>
     </div>
   );
 };
