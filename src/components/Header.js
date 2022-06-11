@@ -32,11 +32,10 @@ const Header = ({ onOpenCart }) => {
             />
           </Link>
         </li>
-        <li className="mr-30 d-flex align-center">
+        <li className="d-flex align-center">
           <Link  to="/orders">
           <img width={18} height={18} src="/img/user.svg" alt="Заказы" />
           </Link>
-          
         </li>
       </ul>
     </header>
