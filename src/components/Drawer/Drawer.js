@@ -5,6 +5,7 @@ import Info from "../Info";
 
 import style from "./Drawer.module.scss";
 
+
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const Drawer = ({ onClose, items = [], onRemove, opened }) => {
@@ -12,8 +13,6 @@ const Drawer = ({ onClose, items = [], onRemove, opened }) => {
   const [orderId, setOrderId] = useState(null);
   const [isOrderComplete, setIsOrderComplete] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  
 
   const clickToOrder = async () => {
     try {
@@ -47,30 +46,30 @@ const Drawer = ({ onClose, items = [], onRemove, opened }) => {
           Корзина
           <img
             onClick={onClose}
-            className="removeBtn cu-p"
+            className={`${style.removeBtn} cu-p`}
             src="/img/btn-remove.svg"
             alt="Remove"
           />
         </h2>
         {items.length > 0 ? (
           <div className="d-flex flex-column flex">
-            <div className="cartItems">
+            <div className={style.cartItems}>
               {items.map((item) => {
                 return (
                   <div
                     key={item.id}
-                    className="cartItem d-flex align-center mb-20"
+                    className={`${style.cartItem} d-flex align-center mb-20`}
                   >
                     <div
                       style={{ backgroundImage: `url(${item.imageUrl})` }}
-                      className="cartItemImg  d-flex"
+                      className={`${style.cartItemImg}  d-flex`}
                     ></div>
                     <div className="mr-15">
                       <p className="mb-5">{item.title}</p>
                       <b>{item.price}pуб.</b>
                     </div>
                     <img
-                      className="removeBtn"
+                      className={style.removeBtn}
                       src="/img/btn-remove.svg"
                       alt="Remove"
                       onClick={() => onRemove(item.id)}
@@ -79,7 +78,7 @@ const Drawer = ({ onClose, items = [], onRemove, opened }) => {
                 );
               })}
             </div>
-            <div className="cartTotalBlock">
+            <div className={style.cartTotalBlock}>
               <ul className="mb-25">
                 <li className="d-flex">
                   <span>Итого: </span>
@@ -95,7 +94,7 @@ const Drawer = ({ onClose, items = [], onRemove, opened }) => {
               <button
                 disabled={isLoading}
                 onClick={clickToOrder}
-                className="greenButton"
+                className={style.greenButton}
               >
                 Оформить заказ <img src="/img/arrow-btn.svg" alt="" />
               </button>

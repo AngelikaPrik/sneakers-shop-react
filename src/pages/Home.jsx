@@ -3,6 +3,8 @@ import CardItem from "../components/CardItem/CardItem";
 import Slider from "../components/Slider";
 import AppContext from "../Context";
 
+import { v4 as uuidv4 } from 'uuid';
+
 const Home = ({
   items,
   searchValue,
@@ -11,16 +13,16 @@ const Home = ({
   onAddToFavourite,
 }) => {
   const { isLoading } = useContext(AppContext);
-
+  
   const renderItems = () => {
     const filteredItems = items.filter((item) =>
-      item.title.toLowerCase().includes(searchValue)
+      item.title.toLowerCase().includes(searchValue.toLowerCase())
     );
     return (isLoading ? [...Array(12)] : filteredItems).map((item, index) => (
       <CardItem
         key={index}
         onAdd={(obj) => onAddToCart(obj)}
-        onFavourite={(obj) => onAddToFavourite(obj)}
+        onFavorite={(obj) => onAddToFavourite(obj)}
         loading={isLoading}
         {...item}
       />

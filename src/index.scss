@@ -69,38 +69,6 @@ header {
   }
 }
 
-
-
-.cartTotalBlock {
-  ul {
-    
-    li {
-      display: flex;
-      align-items: flex-end;
-      margin-bottom: 20px;
-      div {
-        flex: 1;
-        height: 1px;
-        border-bottom: 1px dashed #dfdfdf;
-        position: relative;
-        top: -4px;
-        margin: 0 8px;
-      }
-    }
-  }
-  .greenButton {
-    position: relative;
-
-    &:disabled {
-      animation: button-loading 1s ease-in-out infinite;
-    }
-    img {
-      position: absolute;
-      right: 30px;
-      top: 22px;
-    }
-  }
-}
 .greenButton {
   width: 100%;
   background: #9dd558;
