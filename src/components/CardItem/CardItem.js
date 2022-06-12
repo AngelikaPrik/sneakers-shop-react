@@ -51,7 +51,7 @@ const CardItem = ({
               <img
                 width={32}
                 height={32}
-                src={isFavourite ? "/img/liked.png" : "/img/unliked.png"}
+                src={isFavourite ? "img/liked.png" : "img/unliked.png"}
                 alt=""
               />
             </div>
@@ -75,7 +75,7 @@ const CardItem = ({
                 onClick={onClickPlus}
                 className={styles.plus}
                 src={
-                  isItemAdded(id) ? "/img/btn-check.svg" : "/img/btn-plus.svg"
+                  isItemAdded(id) ? "img/btn-check.svg" : "img/btn-plus.svg"
                 }
                 alt="Plus"
               />
