@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useCart } from "../../hooks/useCart";
 import InfoDrawer from "../InfoDrawer";
 
@@ -13,6 +13,17 @@ const Drawer = ({ onClose, onRemove, items = [], opened }) => {
   const [orderId, setOrderId] = useState(null);
   const [isOrderComplete, setIsOrderComplete] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const refOne = useRef(null);
+  
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside, true)
+  }, []);
+
+  const handleClickOutside = e => {
+    if(!refOne.current.contains(e.target)) {
+      onClose();
+    }
+  }
 
   const clickToOrder = async () => {
     try {
@@ -41,7 +52,7 @@ const Drawer = ({ onClose, onRemove, items = [], opened }) => {
 
   return (
     <div className={`${style.overlay} ${opened ? style.overlayVisible : ""}`}>
-      <div className={`${style.drawer} d-flex flex-column`}>
+      <div ref={refOne} className={`${style.drawer} d-flex flex-column`}>
         <h2 className="d-flex justify-between align-center mb-30">
           Корзина
           <img
