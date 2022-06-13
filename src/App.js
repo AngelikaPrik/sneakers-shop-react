@@ -130,7 +130,7 @@ function App() {
         <Header onOpenCart={() => setCartOpened(true)} />
         <Routes>
           <Route
-            path="/"
+            path="/sneakers-shop-react"
             element={
               <Home
                 items={items}

@@ -29,6 +29,7 @@ const Home = ({
     ));
   };
 
+
   return (
     <div className="content p-40">
       <Slider/>
