@@ -51,7 +51,7 @@ const CardItem = ({
               <img
                 width={32}
                 height={32}
-                src={isFavourite ? "img/liked.png" : "img/unliked.png"}
+                src={process.env.PUBLIC_URL+(isFavourite ? "img/liked.png" : "img/unliked.png")}
                 alt=""
               />
             </div>
@@ -61,7 +61,7 @@ const CardItem = ({
             width={133}
             height={112}
             alt=""
-            src={imageUrl}
+            src={process.env.PUBLIC_URL+imageUrl}
           />
           <h5 className="mb-15">{title}</h5>
           <div className="d-flex justify-between align-center">
@@ -74,9 +74,7 @@ const CardItem = ({
               <img
                 onClick={onClickPlus}
                 className={styles.plus}
-                src={
-                  isItemAdded(id) ? "img/btn-check.svg" : "img/btn-plus.svg"
-                }
+                src={process.env.PUBLIC_URL+(isItemAdded(id) ? "img/btn-check.svg" : "img/btn-plus.svg")}
                 alt="Plus"
               />
             )}

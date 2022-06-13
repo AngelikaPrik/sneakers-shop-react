@@ -10,7 +10,7 @@ const Favourites = () => {
     <div className="content p-40">
       <div className="mb-40 d-flex align-center ">
         <Link to="/">
-          <img className="mr-20 cu-p" src="img/back_fav.svg" alt=""/>
+          <img className="mr-20 cu-p" src={process.env.PUBLIC_URL+"img/back_fav.svg"} alt=""/>
         </Link>
         <h1>Мои закладки</h1>
       </div>
