@@ -8,7 +8,7 @@ const Header = ({ onOpenCart }) => {
   
   return (
     <header className="d-flex justify-between align-center p-40">
-      <Link to="/">
+      <Link to="/sneakers-shop-react">
         <div className="d-flex align-center">
           <img width={40} height={40} src={process.env.PUBLIC_URL+"/img/logo.svg"} alt="" />
           <div>
