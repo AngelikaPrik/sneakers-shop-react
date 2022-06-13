@@ -34,7 +34,7 @@ const Header = ({ onOpenCart }) => {
         </li>
         <li className="d-flex align-center">
           <Link  to="/orders">
-          <img width={18} height={18} src={process.env.PUBLIC_URL+"img/user.svg"} alt="Заказы" />
+          <img width={18} height={18} src={process.env.PUBLIC_URL+"/img/user.svg"} alt="Заказы" />
           </Link>
         </li>
       </ul>

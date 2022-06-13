@@ -51,7 +51,7 @@ const CardItem = ({
               <img
                 width={32}
                 height={32}
-                src={process.env.PUBLIC_URL+(isFavourite ? "img/liked.png" : "img/unliked.png")}
+                src={process.env.PUBLIC_URL+(isFavourite ? "/img/liked.png" : "/img/unliked.png")}
                 alt=""
               />
             </div>
@@ -74,7 +74,7 @@ const CardItem = ({
               <img
                 onClick={onClickPlus}
                 className={styles.plus}
-                src={process.env.PUBLIC_URL+(isItemAdded(id) ? "img/btn-check.svg" : "img/btn-plus.svg")}
+                src={process.env.PUBLIC_URL+(isItemAdded(id) ? "/img/btn-check.svg" : "/img/btn-plus.svg")}
                 alt="Plus"
               />
             )}

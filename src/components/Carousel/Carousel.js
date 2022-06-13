@@ -44,7 +44,7 @@ export const Carousel = ({children}) => {
 	
 	return ( 
 		<div className={styles.mainContent}>
-			<img onClick={handleLeftArrowClick} className={styles.arrowLeft} alt='' src={process.env.PUBLIC_URL+'img/slider/arrow-left.svg'}/>
+			<img onClick={handleLeftArrowClick} className={styles.arrowLeft} alt='' src={process.env.PUBLIC_URL+"/img/slider/arrow-left.svg"}/>
 			<div className={styles.window}>
 				<div className={styles.allPagesContainer}
 					style={{
@@ -54,7 +54,7 @@ export const Carousel = ({children}) => {
 					{pages}
 				</div>
 			</div>
-			<img onClick={handleRightArrowClick} className={styles.arrowRight} alt='' src={process.env.PUBLIC_URL+'img/slider/arrow-right.svg'}/>
+			<img onClick={handleRightArrowClick} className={styles.arrowRight} alt='' src={process.env.PUBLIC_URL+"/img/slider/arrow-right.svg"}/>
 
 		</div>
 	 );
