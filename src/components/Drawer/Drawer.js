@@ -61,8 +61,8 @@ const Drawer = ({ onClose, items = [], onRemove, opened }) => {
                     className={`${style.cartItem} d-flex align-center mb-20`}
                   >
                     <div
-                      style={{ backgroundImage: `url(${item.imageUrl})` }}
-                      className={`${style.cartItemImg}  d-flex`}
+                      style={{ backgroundImage: `url(${process.env.PUBLIC_URL+item.imageUrl})` }}
+                      className={`${style.cartItem_img}  d-flex`}
                     ></div>
                     <div className="mr-15">
                       <p className="mb-5">{item.title}</p>
