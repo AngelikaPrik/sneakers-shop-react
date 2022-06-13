@@ -8,7 +8,7 @@ import style from "./Drawer.module.scss";
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const Drawer = ({ onClose, items = [], onRemove, opened }) => {
+const Drawer = ({ onClose, onRemove, items = [], opened }) => {
   const {addedItems, setAddedItems, totalPrice} = useCart()
   const [orderId, setOrderId] = useState(null);
   const [isOrderComplete, setIsOrderComplete] = useState(false);
@@ -29,7 +29,7 @@ const Drawer = ({ onClose, items = [], onRemove, opened }) => {
       for (let i = 0; i < addedItems.length; i++) {
         const item = addedItems[i];
         await axios.delete(
-          "https://6290cc69665ea71fe13af76d.mockapi.io/cart" + item.id
+          "https://6290cc69665ea71fe13af76d.mockapi.io/cart/" + item.id
         );
         await delay(1000)
       }
