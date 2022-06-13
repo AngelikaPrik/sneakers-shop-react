@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import AppContext from "../Context";
 import { useCart } from "../hooks/useCart";
 
 const Header = ({ onOpenCart }) => {

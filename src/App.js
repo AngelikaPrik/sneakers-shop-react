@@ -63,13 +63,11 @@ function App() {
       console.error(error);
     }
   };
-
+  
   const onRemoveFromCart = async (id) => {
     try {
+      await axios.delete(`https://6290cc69665ea71fe13af76d.mockapi.io/cart/${id}`);
       setAddedItems((prev) => prev.filter((item) => Number(item.id) !== Number(id)));
-      await axios.delete(
-        `https://6290cc69665ea71fe13af76d.mockapi.io/cart/${id}`
-      );
     } catch (error) {
       alert("Ошибка при удалении товаров");
       console.error(error);
@@ -86,13 +84,9 @@ function App() {
 
   const onAddToFavourite = async (obj) => {
     try {
-      if (
-        favouriteItems.find((favObj) => Number(favObj.id) === Number(obj.id))
-      ) {
-        axios.delete(
-          `https://6290cc69665ea71fe13af76d.mockapi.io/favourites/${obj.id}`
-        );
-        setFavouriteItems((prev) => prev.filter((item) => item.id !== obj.id));
+      if (favouriteItems.find((favObj) => Number(favObj.id) === Number(obj.id))) {
+        axios.delete(`https://6290cc69665ea71fe13af76d.mockapi.io/favourites/${obj.id}`);
+        setFavouriteItems((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)));
       } else {
         const { data } = await axios.post(
           "https://6290cc69665ea71fe13af76d.mockapi.io/favourites",

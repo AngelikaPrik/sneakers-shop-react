@@ -9,22 +9,23 @@ const CardItem = ({
   title,
   price,
   imageUrl,
-  onAdd,
+  onPlus,
   onFavourite,
   fav = false,
   loading = false,
-}) => {
+}) => {  
   const { isItemAdded } = useContext(AppContext);
   const [isFavourite, setIsFavourite] = useState(fav);
-  const obj = { id, parentId: id, title, price, imageUrl };
+  const obj = { id, parentId: id, title, imageUrl, price };
+
 
   const onClickPlus = () => {
-    onAdd(obj);
+    onPlus(obj);
   };
 
   const onClickFavourite = () => {
     onFavourite(obj);
-    setIsFavourite((prev) => !prev);
+    setIsFavourite(!isFavourite);
   };
 
   return (
@@ -49,8 +50,7 @@ const CardItem = ({
           {onFavourite && (
             <div className={styles.favourite} onClick={onClickFavourite}>
               <img
-                width={32}
-                height={32}
+                width={32} height={32}
                 src={process.env.PUBLIC_URL+(isFavourite ? "/img/liked.png" : "/img/unliked.png")}
                 alt=""
               />
@@ -70,11 +70,11 @@ const CardItem = ({
               <b>{price} руб.</b>
             </div>
 
-            {onAdd && (
+            {onPlus && (
               <img
                 onClick={onClickPlus}
                 className={styles.plus}
-                src={process.env.PUBLIC_URL+(isItemAdded(id) ? "/img/btn-check.svg" : "/img/btn-plus.svg")}
+                src={process.env.PUBLIC_URL + (isItemAdded(id) ? "/img/btn-check.svg" : "/img/btn-plus.svg")}
                 alt="Plus"
               />
             )}

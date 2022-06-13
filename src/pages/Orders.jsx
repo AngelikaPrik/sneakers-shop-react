@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CardItem from "../components/CardItem/CardItem";
+import Info from "../components/Info";
 import AppContext from "../Context";
 
 const Orders = () => {
@@ -30,14 +31,24 @@ const Orders = () => {
         </Link>
         <h1>Мои заказы</h1>
       </div>
-      <div className="d-flex flex-wrap">
-        {(isLoading ? [...Array(12)] : orders).map((item, index) => (
-          <CardItem
-            key={index}
-            loading={isLoading}
-            {...item}
+      <div className={orders.length > 0 ? "d-flex flex-wrap" : "d-flex flex-wrap justify-center"}>
+        {orders.length > 0 ? (
+          <>
+            {
+              orders.map((item, index) => <CardItem key={index} loading={isLoading} {...item}/>)
+            }
+          </>
+        )
+        :(
+          <Info
+            image="/img/emoji-order.svg"
+            w={70}
+            title="У вас нет заказов :("
+            description="Оформите хотя бы один заказ"
           />
-        ))}
+        )
+        }
+
       </div>
     </div>
   );

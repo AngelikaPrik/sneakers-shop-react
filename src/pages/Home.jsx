@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import CardItem from "../components/CardItem/CardItem";
 import Slider from "../components/Slider";
-import AppContext from "../Context";
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -11,9 +10,24 @@ const Home = ({
   onChangeInput,
   onAddToCart,
   onAddToFavourite,
+  isLoading,
 }) => {
-  const { isLoading } = useContext(AppContext);
   
+  // const renderItems = () => {
+  //   const filteredItems = items.filter((item) =>
+  //     item.title.toLowerCase().includes(searchValue.toLowerCase())
+  //   );
+  //   return (isLoading ? [...Array(12)] : filteredItems).map((item, index) => (
+  //     <CardItem
+  //       key={index}
+  //       onFavorite={(obj) => onAddToFavourite(obj)}
+  //       onPlus={(obj) => onAddToCart(obj)}
+  //       loading={isLoading}
+  //       {...item}
+  //     />
+  //   ));
+  // };
+
   const renderItems = () => {
     const filteredItems = items.filter((item) =>
       item.title.toLowerCase().includes(searchValue.toLowerCase())
@@ -21,14 +35,13 @@ const Home = ({
     return (isLoading ? [...Array(12)] : filteredItems).map((item, index) => (
       <CardItem
         key={index}
-        onAdd={(obj) => onAddToCart(obj)}
-        onFavorite={(obj) => onAddToFavourite(obj)}
+        onFavourite={(obj) => onAddToFavourite(obj)}
+        onPlus={(obj) => onAddToCart(obj)}
         loading={isLoading}
         {...item}
       />
     ));
   };
-
 
   return (
     <div className="content p-40">

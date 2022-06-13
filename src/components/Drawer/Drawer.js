@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useCart } from "../../hooks/useCart";
-import Info from "../Info";
+import InfoDrawer from "../InfoDrawer";
 
 import style from "./Drawer.module.scss";
 
@@ -57,8 +57,8 @@ const Drawer = ({ onClose, items = [], onRemove, opened }) => {
               {items.map((item) => {
                 return (
                   <div
-                    key={item.id}
                     className={`${style.cartItem} d-flex align-center mb-20`}
+                    key={item.id}
                   >
                     <div
                       style={{ backgroundImage: `url(${process.env.PUBLIC_URL+item.imageUrl})` }}
@@ -101,7 +101,7 @@ const Drawer = ({ onClose, items = [], onRemove, opened }) => {
             </div>
           </div>
         ) : (
-          <Info
+          <InfoDrawer
             image={
               isOrderComplete
                 ? "/img/complete-order.png"
