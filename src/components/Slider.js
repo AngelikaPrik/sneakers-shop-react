@@ -6,17 +6,17 @@ const Slider = () => {
     <div className="mb-40">
       <Carousel>
         <div>
-          <img width={1000} src="/img/slider/banner-1.png" alt="Adidas banner" />
+          <img width={1000} src="img/slider/banner-1.png" alt="Adidas banner" />
         </div>
         <div>
           <img
             width={1000}
-            src="/img/slider/banner-2.png"
+            src="img/slider/banner-2.png"
             alt="Converse banner"
           />
         </div>
         <div>
-          <img width={1000} src="/img/slider/banner-3.png" alt="Nike banner" />
+          <img width={1000} src="img/slider/banner-3.png" alt="Nike banner" />
         </div>
       </Carousel>
     </div>
