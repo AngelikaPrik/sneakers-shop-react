@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import ContentLoader from "react-content-loader";
+import { useNavigate } from "react-router-dom";
 import AppContext from "../../Context";
 
 import styles from "./CardItem.module.scss";
@@ -13,10 +14,12 @@ const CardItem = ({
   onFavourite,
   fav = false,
   loading = false,
-}) => {  
+}) => {
   const { isItemAdded } = useContext(AppContext);
   const [isFavourite, setIsFavourite] = useState(fav);
   const obj = { id, parentId: id, title, imageUrl, price };
+
+  let navigate = useNavigate();
 
 
   const onClickPlus = () => {
@@ -50,18 +53,23 @@ const CardItem = ({
           {onFavourite && (
             <div className={styles.favourite} onClick={onClickFavourite}>
               <img
-                width={32} height={32}
-                src={process.env.PUBLIC_URL+(isFavourite ? "/img/liked.png" : "/img/unliked.png")}
+                width={32}
+                height={32}
+                src={
+                  process.env.PUBLIC_URL +
+                  (isFavourite ? "/img/liked.png" : "/img/unliked.png")
+                }
                 alt=""
               />
             </div>
           )}
           <img
+            onClick={() => navigate(`/sneakers/${id}`)}
             className="mb-15"
             width={133}
             height={112}
             alt=""
-            src={process.env.PUBLIC_URL+imageUrl}
+            src={process.env.PUBLIC_URL + imageUrl}
           />
           <h5 className="mb-15">{title}</h5>
           <div className="d-flex justify-between align-center">
@@ -74,7 +82,10 @@ const CardItem = ({
               <img
                 onClick={onClickPlus}
                 className={styles.plus}
-                src={process.env.PUBLIC_URL + (isItemAdded(id) ? "/img/btn-check.svg" : "/img/btn-plus.svg")}
+                src={
+                  process.env.PUBLIC_URL +
+                  (isItemAdded(id) ? "/img/btn-check.svg" : "/img/btn-plus.svg")
+                }
                 alt="Plus"
               />
             )}

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Info = ({ image, w, title, description }) => {
   return (
-    <div className="d-flex flex-column align-center cartEmpty">
+    <div className="d-flex flex-column align-center mt-40 info">
       <img width={w} alt="Cart" src={process.env.PUBLIC_URL+image} className="mb-20" />
       <h3 className="mb-10">{title}</h3>
       <p className="mb-40 emptyText">{description}</p>
