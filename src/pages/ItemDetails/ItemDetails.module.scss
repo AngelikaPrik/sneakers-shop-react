@@ -25,6 +25,10 @@
     justify-content: space-between;
     align-items: center;
   }
+
+  .sizeBlock {
+    overflow: hidden;
+  }
   .size {
     color: #9dd558;
     border: 1.5px solid #9dd458;
@@ -32,15 +36,20 @@
     padding: 6px;
     margin-right: 6px;
     font-weight: 600;
+    cursor: pointer;
+
+    transition: translate ;
+	transition-property: transform;
+	transition-duration: 300ms;
+	transition-timing-function: ease-in-out;
   }
   .disabled {
-    background: #DCDCDC;
+    background: #dcdcdc;
     color: #fff;
     border-radius: 7px;
     padding: 6px;
     margin-right: 6px;
     font-weight: 600;
-
   }
   .material {
     font-weight: 500;

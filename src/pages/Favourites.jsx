@@ -37,7 +37,7 @@ const Favourites = () => {
           </>
         ) : (
           <Info
-            image="/img/emoji-favourite.svg"
+            image="/img/emoji-favourite.png"
             w={70}
             title="Закладок нет :("
             description="Вы ничего не добавляли в закладки"

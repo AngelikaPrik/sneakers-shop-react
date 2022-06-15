@@ -9,7 +9,6 @@ export const Carousel = ({children}) => {
 	const [offset, setOffset] = useState(0);
 
 	const handleLeftArrowClick = () => {
-
 		setOffset( (currentOffset) => {
 			const newOffset = currentOffset + PAGE_WIDTH;
 
@@ -18,8 +17,6 @@ export const Carousel = ({children}) => {
 	}
 
 	const handleRightArrowClick = () => {
-		
-
 		setOffset( (currentOffset) => {
 			const newOffset = currentOffset - PAGE_WIDTH;
 

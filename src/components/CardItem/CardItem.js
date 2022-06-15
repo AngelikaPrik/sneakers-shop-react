@@ -71,7 +71,7 @@ const CardItem = ({
             alt=""
             src={process.env.PUBLIC_URL + imageUrl}
           />
-          <h5 className="mb-15">{title}</h5>
+          <h5 className="mb-15" onClick={() => navigate(`/sneakers/${id}`)}>{title}</h5>
           <div className="d-flex justify-between align-center">
             <div className="d-flex flex-column">
               <span className={styles.cardPrice}>Цена:</span>

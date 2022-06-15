@@ -3,12 +3,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AppContext from "../../Context";
 import style from "./ItemDetails.module.scss";
-import ContentLoader from "react-content-loader";
+
+const SIZEITEM_PAGE = 230;
 
 const ItemDetails = () => {
   const params = useParams();
-  const { isLoading } = useContext(AppContext);
+  const { onAddToCart } = useContext(AppContext);
   const [item, setItem] = useState({});
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
     getItemDetails(params.id);
@@ -25,67 +27,97 @@ const ItemDetails = () => {
     }
   };
 
+  const handleLeftArrowClick = () => {
+		setOffset( (currentOffset) => {
+			const newOffset = currentOffset + SIZEITEM_PAGE;
+			return Math.min(newOffset, 0);
+		})
+	}
+
+  const handleRightArrowClick = () => {
+    setOffset((currentOffset) => {
+      const newOffset = currentOffset - SIZEITEM_PAGE;
+
+      const maxOffset = -(SIZEITEM_PAGE * (2 - 1));
+      return Math.max(newOffset, maxOffset);
+    });
+  };
+
+  const { imageUrl, description, material, price, size } = item;
+
   return (
     <div className="content p-40">
       <div className="d-flex justify-around">
-        {isLoading ? (
-          <ContentLoader
-            speed={2}
-            width={400}
-            height={470}
-            viewBox="0 0 400 470"
-            backgroundColor="#f3f3f3"
-            foregroundColor="#ecebeb"
-          >
-            <rect x="536" y="264" rx="10" ry="10" width="150" height="15" />
-            <rect x="0" y="0" rx="0" ry="0" width="380" height="380" />
-            <rect x="0" y="402" rx="0" ry="0" width="380" height="60" />
-          </ContentLoader>
-        ) : (
-          <div className={style.imageBlock}>
-            <div>
-              <img
-                width={40}
-                height={40}
-                src={process.env.PUBLIC_URL + "/img/liked.png"}
-                alt=""
-              />
-            </div>
-            <div className="main_img">
-              <img
-                width={302}
-                height={280}
-                src={process.env.PUBLIC_URL + item.imageUrl}
-                alt=""
-              />
-            </div>
+        <div className={style.imageBlock}>
+          <div>
+            <img
+              width={40}
+              height={40}
+              src={process.env.PUBLIC_URL + "/img/unliked.png"}
+              alt=""
+            />
           </div>
-        )}
-
+          <div className="main_img">
+            <img
+              width={302}
+              height={280}
+              src={process.env.PUBLIC_URL + imageUrl}
+              alt=""
+            />
+          </div>
+        </div>
         <div className={style.textBlock}>
           <h2 className="mb-15">{item.title}</h2>
-          <p className={style.itemDesc}>{item.description}</p>
+          <p className={style.itemDesc}>{description}</p>
           <div className="d-flex mt-30 mb-30">
             <h4>Материaл:</h4>
-            <p className={style.material}>{item.material}</p>
+            <p className={style.material}>{material}</p>
           </div>
           <div className="d-flex align-center justify-between">
-            <h4>Размер:</h4>
-            <div className="d-flex ml-10">
-              <div className={style.disabled}>36</div>
-              <div className={style.size}>37</div>
-              <div className={style.size}>37,5</div>
-              <div className={style.disabled}>38</div>
-              <div className={style.size}>39</div>
-              <div className={style.size}>39,5</div>
-              <div className={style.size}>40</div>
+            <h4 className="mr-10">Размер:</h4>
+            <img
+              onClick={handleLeftArrowClick}
+              className="mr-10 cu-p"
+              src={process.env.PUBLIC_URL + "/img/arr_size_left.svg"}
+              alt=""
+              style={offset ? {display: "block"} : {display: "none"}}
+            />
+            <div className={style.sizeBlock}>
+              <div className="d-flex ml-10">
+                {size?.map((item, index) => {
+                  return (
+                    <div
+                      style={{
+                        transform: `translateX(${offset}px)`,
+                      }}
+                      key={index}
+                      className={style.size}
+                      onClick={() => console.log(item)}
+                    >
+                      {item}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
+            <img
+              onClick={handleRightArrowClick}
+              className="ml-10 cu-p"
+              src={process.env.PUBLIC_URL + "/img/arr_size.svg"}
+              alt=""
+              style={offset < -200 ? {display: "none"} : {display: "block"}}
+            />
           </div>
           <div className={style.price}>
             <h4>Цена:</h4>
-            <strong className={style.price}>{item.price} руб.</strong>
+            <strong className={style.price}>{price} руб.</strong>
           </div>
-          <button className={style.greenButton}>Добавить в корзину</button>
+          <button
+            onClick={() => onAddToCart(item)}
+            className={style.greenButton}
+          >
+            Добавить в корзину
+          </button>
         </div>
       </div>
     </div>
@@ -97,11 +129,12 @@ const arr = [
     id: "1",
     title: "Мужские Кроссовки Nike Blazer Mid Suede",
     description:
-      "Спортивные некоторые из самых разыскиваемых тренеров в игре, просматривать Air Max 90 и ВВС 1, а также стили Cortez и Joyride.",
+      "Эти Nike Blazer Mid 77 имеют стиль, который соответствует их ретро-дизайну. В зеленой замшевой конструкции блейзер имеет винтажный вид, выделенный ретро логотип Nike язык и старая школа 'NIKE' типографика на пятке. Белый Swoosh по бокам придает смелости этому классическому стилю. ",
     material:
       "Линия: 100% текстиль, подошва: 100% резина, верхняя: 100% текстиль.",
     price: 12999,
     imageUrl: "/img/sneakers/1.png",
+    size: ["36", "37", "37,5", "38", "39,5", "40", "40,5", "41"],
   },
   {
     id: "2",
@@ -112,6 +145,7 @@ const arr = [
       "Искусственная кожа, натуральная кожа, Внутренний материал - текстиль",
     price: 10599,
     imageUrl: "/img/sneakers/2.png",
+    size: ["36", "37", "37,5", "38", "39,5", "40", "40,5", "41"],
   },
   {
     id: "3",
@@ -121,6 +155,7 @@ const arr = [
     material: "искусственная кожа, текстиль",
     price: 4900,
     imageUrl: "/img/sneakers/3.png",
+    size: ["36", "37", "37,5", "38", "39,5", "40", "40,5", "41"],
   },
   {
     id: "4",
@@ -130,6 +165,7 @@ const arr = [
     material: "Замша, Сетка",
     price: 5699,
     imageUrl: "/img/sneakers/4.png",
+    size: ["36", "37", "37,5", "38", "39,5", "40", "40,5", "41"],
   },
   {
     id: "5",
@@ -139,6 +175,7 @@ const arr = [
     material: "",
     price: 9589,
     imageUrl: "/img/sneakers/5.png",
+    size: ["36", "37", "37,5", "38", "39,5", "40", "40,5", "41"],
   },
   {
     id: "6",
@@ -148,6 +185,7 @@ const arr = [
     material: "",
     price: 8799,
     imageUrl: "/img/sneakers/6.png",
+    size: ["36", "37", "37,5", "38", "39,5", "40", "40,5", "41"],
   },
   {
     id: "7",
@@ -157,6 +195,7 @@ const arr = [
     material: "",
     price: 4999,
     imageUrl: "/img/sneakers/7.png",
+    size: ["36", "37", "37,5", "38", "39,5", "40", "40,5", "41"],
   },
   {
     id: "8",
@@ -166,6 +205,7 @@ const arr = [
     material: "",
     price: 3599,
     imageUrl: "/img/sneakers/8.png",
+    size: ["36", "37", "37,5", "38", "39,5", "40", "40,5", "41"],
   },
   {
     id: "9",
@@ -175,6 +215,7 @@ const arr = [
     material: "",
     price: 6349,
     imageUrl: "/img/sneakers/9.png",
+    size: ["36", "37", "37,5", "38", "39,5", "40", "40,5", "41"],
   },
   {
     id: "10",
@@ -184,6 +225,7 @@ const arr = [
     material: "",
     price: 4599,
     imageUrl: "/img/sneakers/10.png",
+    size: ["36", "37", "37,5", "38", "39,5", "40", "40,5", "41"],
   },
   {
     id: "11",
@@ -193,6 +235,7 @@ const arr = [
     material: "искусственная кожа, текстиль, Внутренний материал- текстиль",
     price: 7899,
     imageUrl: "/img/sneakers/11.png",
+    size: ["36", "37", "37,5", "38", "39,5", "40", "40,5", "41"],
   },
   {
     id: "12",
@@ -202,6 +245,7 @@ const arr = [
     material: "",
     price: 5609,
     imageUrl: "/img/sneakers/12.png",
+    size: ["36", "37", "37,5", "38", "39,5", "40", "40,5", "41"],
   },
 ];
 export default ItemDetails;

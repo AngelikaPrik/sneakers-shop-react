@@ -63,7 +63,7 @@ function App() {
             if (item.parentId === data.parentId) {
               return {
                 ...item,
-                id: data.id,
+                id: data.id
               };
             }
             return item;

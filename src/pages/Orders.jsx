@@ -63,7 +63,7 @@ const Orders = () => {
               </>
             ) : (
               <Info
-                image="/img/emoji-order.svg"
+                image="/img/emoji-orders.png"
                 w={70}
                 title="У вас нет заказов :("
                 description="Оформите хотя бы один заказ"
