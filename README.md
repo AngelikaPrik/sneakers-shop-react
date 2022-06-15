@@ -1,6 +1,6 @@
 # gh-pages
 1. Сlick here https://angelikaprik.github.io/sneakers-shop-react/
-2. Then click then on the logo
+2. Then click on the logo
 
 
 
