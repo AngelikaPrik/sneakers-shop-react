@@ -1,3 +1,9 @@
+# gh-pages
+1. Сlick here https://angelikaprik.github.io/sneakers-shop-react/
+2. Then click then on the logo
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
