@@ -68,7 +68,11 @@ header {
     width: 180px;
   }
 }
-
+.card_content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* see notes below */
+  grid-gap: 30px;
+}
 .greenButton {
   width: 100%;
   background: #9dd558;

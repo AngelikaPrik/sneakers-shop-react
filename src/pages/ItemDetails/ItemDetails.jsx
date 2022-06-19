@@ -58,7 +58,7 @@ const ItemDetails = () => {
               alt=""
             />
           </div>
-          <div className="main_img">
+          <div>
             <img
               width={302}
               height={280}
@@ -66,6 +66,7 @@ const ItemDetails = () => {
               alt=""
             />
           </div>
+          <div className={style.preview}></div>
         </div>
         <div className={style.textBlock}>
           <h2 className="mb-15">{item.title}</h2>

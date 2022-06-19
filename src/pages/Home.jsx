@@ -42,7 +42,7 @@ const Home = ({
           />
         </div>
       </div>
-      <div className="d-flex flex-wrap">{renderItems()}</div>
+      <div className="card_content">{renderItems()}</div>
     </div>
   );
 };

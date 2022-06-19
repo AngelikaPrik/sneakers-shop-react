@@ -39,7 +39,7 @@ const Orders = () => {
       <div
         className={
           orders.length > 0
-            ? "d-flex flex-wrap"
+            ? ""
             : "d-flex flex-wrap justify-center"
         }
       >
@@ -56,11 +56,11 @@ const Orders = () => {
         ) : (
           <>
             {orders.length > 0 ? (
-              <>
+              <div className="card_content">
                 {orders.map((item, index) => (
                   <CardItem key={index} loading={isLoading} {...item} />
                 ))}
-              </>
+              </div>
             ) : (
               <Info
                 image="/img/emoji-orders.png"
