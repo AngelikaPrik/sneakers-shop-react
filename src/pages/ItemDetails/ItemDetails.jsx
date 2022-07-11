@@ -15,6 +15,7 @@ const ItemDetails = () => {
 
   useEffect(() => {
     getItemDetails(params.id);
+    window.scrollTo(0, 0);
   }, []);
 
   const getItemDetails = async (id) => {

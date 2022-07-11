@@ -103,7 +103,7 @@ function App() {
       if (
         favouriteItems.find((favObj) => Number(favObj.id) === Number(obj.id))
       ) {
-        axios.delete(
+        await axios.delete(
           `https://6290cc69665ea71fe13af76d.mockapi.io/favourites/${obj.id}`
         );
         setFavouriteItems((prev) =>
