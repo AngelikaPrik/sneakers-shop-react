@@ -5,25 +5,28 @@ import InfoDrawer from "../InfoDrawer";
 
 import style from "./Drawer.module.scss";
 
-
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const Drawer = ({ onClose, onRemove, items = [], opened }) => {
-  const {addedItems, setAddedItems, totalPrice} = useCart()
+  const { addedItems, setAddedItems, totalPrice } = useCart();
   const [orderId, setOrderId] = useState(null);
   const [isOrderComplete, setIsOrderComplete] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const cartRef = useRef(null);
-  
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside, true)
-  }, []);
 
-  const handleClickOutside = e => {
-    if(!cartRef.current.contains(e.target)) {
+  const handleClickOutside = (e) => {
+    if (!e.path.includes(cartRef.current)) {
       onClose();
+      console.log("click outside");
     }
-  }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, []);
 
   const clickToOrder = async () => {
     try {
@@ -42,7 +45,7 @@ const Drawer = ({ onClose, onRemove, items = [], opened }) => {
         await axios.delete(
           "https://6290cc69665ea71fe13af76d.mockapi.io/cart/" + item.id
         );
-        await delay(1000)
+        await delay(1000);
       }
     } catch (error) {
       alert("Ошибка при создании заказа");
@@ -58,7 +61,7 @@ const Drawer = ({ onClose, onRemove, items = [], opened }) => {
           <img
             onClick={onClose}
             className={`${style.removeBtn} cu-p`}
-            src={process.env.PUBLIC_URL+"/img/btn-remove.svg"}
+            src={process.env.PUBLIC_URL + "/img/btn-remove.svg"}
             alt="Remove"
           />
         </h2>
@@ -72,7 +75,11 @@ const Drawer = ({ onClose, onRemove, items = [], opened }) => {
                     key={item.id}
                   >
                     <div
-                      style={{ backgroundImage: `url(${process.env.PUBLIC_URL+item.imageUrl})` }}
+                      style={{
+                        backgroundImage: `url(${
+                          process.env.PUBLIC_URL + item.imageUrl
+                        })`,
+                      }}
                       className={`${style.cartItem_img}  d-flex`}
                     ></div>
                     <div className="mr-15">
@@ -81,7 +88,7 @@ const Drawer = ({ onClose, onRemove, items = [], opened }) => {
                     </div>
                     <img
                       className={style.removeBtn}
-                      src={process.env.PUBLIC_URL+"/img/btn-remove.svg"}
+                      src={process.env.PUBLIC_URL + "/img/btn-remove.svg"}
                       alt="Remove"
                       onClick={() => onRemove(item.id)}
                     />
@@ -107,7 +114,11 @@ const Drawer = ({ onClose, onRemove, items = [], opened }) => {
                 onClick={clickToOrder}
                 className={style.greenButton}
               >
-                Оформить заказ <img src={process.env.PUBLIC_URL+"/img/arrow-btn.svg"} alt="" />
+                Оформить заказ{" "}
+                <img
+                  src={process.env.PUBLIC_URL + "/img/arrow-btn.svg"}
+                  alt=""
+                />
               </button>
             </div>
           </div>
